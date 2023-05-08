@@ -12,11 +12,13 @@ stdin.on('data', (data) => {
   fs.appendFile(path.join(__dirname, 'text.txt'), data.toString(), (error) => {
     if (error) throw error;
     if (data.toString().trim().toLowerCase() === 'exit') {
+      console.log('Good bye!');
       process.exit();
     }
   });
 });
 
-process.on('exit', () => {
+process.on('SIGINT', () => {
   console.log('Good bye!');
+  process.exit();
 });
